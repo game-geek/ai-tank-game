@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tank Game</title>
+    <link rel="stylesheet" href="http://172.31.80.1:5500/test/public/styles.css">
+</head>
+
+<body>
+    <div id="notificationPanel" onclick="showNotification()">Click here for a message!</div>
+    <div id="popupContainer" class="popup-container" onclick="hideNotification(event)">
+        <div id="popup" class="popup">
+            <span id="closePopup" class="close-popup" onclick="hideNotificationForced()">&times;</span>
+            <p id="popupMessage"></p>
+        </div>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <button id="restartButton">Restart</button>
+    <script src="http://172.31.80.1:5500/test/public/index.js"></script>
+</body>
+
+</html>
