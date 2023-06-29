@@ -64,6 +64,15 @@ canvas {
   cursor: pointer;
   position: absolute;
   right: 0;
-
+  font-size: 20px;
   z-index: 1002;
+}
+.popup-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
 }

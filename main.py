@@ -11,7 +11,7 @@ try:
     
     # Add Html
     body = js.document.querySelector("body")
-    body.innerHTML += '<div><style>body {margin: 0;padding: 0;}#restartButton {position: absolute;top: 10px;right: 10px;padding: 10px 20px;font-size: 16px;display: none;z-index: 1001;}canvas {position: absolute;z-index: 1000;}</style></head><body><div></div><canvas id="gameCanvas"></canvas><button id="restartButton">Restart</button></div>'
+    body.innerHTML += '<div><div id="notificationPanel" onclick="showNotification()">Click here for a message!</div><div id="popupContainer" class="popup-container" onclick="hideNotification(event)"><div id="popup" class="popup"><span id="closePopup" class="close-popup" onclick="hideNotificationForced(event)">&times;</span><p id="popupMessage"></p><a href="https://github.com/game-geek/ai-tank-game" target="_blank" id="viewCodeButton" class="popup-button">View Code on GitHub</a></div></div><canvas id="gameCanvas"></canvas><button id="restartButton">Restart</button></div>'
     
     # Add Js
     tag = js.document.createElement("script")
