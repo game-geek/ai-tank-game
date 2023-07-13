@@ -229,7 +229,6 @@ function update() {
   if (!gameStarted && (score1 >= 5 || score2 >= 5)) {
     gameStarted = true;
     winner = score1 >= 5 ? 1 : 2;
-    console.log("cool", winner);
     gameOverScreen(winner);
 
     const restartButton = document.getElementById("restartButton");

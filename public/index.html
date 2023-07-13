@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tank Game</title>
-    <link rel="stylesheet" href="http://172.31.80.1:5500/test/public/styles.css">
+    <link rel="stylesheet" href="http://127.0.0.1:5500/public/styles.css">
 </head>
 
 <body>
@@ -13,13 +13,21 @@
         <div id="popup" class="popup">
             <span id="closePopup" class="close-popup" onclick="hideNotificationForced(event)">&times;</span>
             <p id="popupMessage"></p>
+            <h2>Two-Player Tank Game</h2>
+            <p>Welcome to the tank game! The goal is to shoot down the opponent's tank and score points. Here's how to play:</p>
+            <ul>
+                <li>Player 1 (Blue tank) uses the WASD keys to move and the spacebar key to shoot.</li>
+                <li>Player 2 (Red tank) uses the arrow keys to move and the enter to shoot.</li>
+                <li>Avoid obstacles and shoot down your opponent's tank to score points.</li>
+                <li>The game ends when one player reaches a certain score.</li>
+            </ul>
             <a href="https://github.com/game-geek/ai-tank-game" target="_blank" id="viewCodeButton"
                 class="popup-button">View Code on GitHub</a>
         </div>
     </div>
     <canvas id="gameCanvas"></canvas>
     <button id="restartButton">Restart</button>
-    <script src="http://172.31.80.1:5500/test/public/index.js"></script>
+    <script src="http://127.0.0.1:5500/public/index.js"></script>
 </body>
 
 </html>
