@@ -9,8 +9,8 @@ The python code is compiled using the _pyxel_ python library into html.
 <br>
 Thank you for visiting my github!
       
-Feel free to contact me for any further informations or business inquiries.
-
+Feel free to contact me for any further informations, project ideas/suggestions or business inquiries.    
+email: webdeveloper403@duck.com
 
 <br>
 
