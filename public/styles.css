@@ -25,6 +25,7 @@ canvas {
   background-color: white;
   position: absolute;
   z-index: 1000;
+  overflow: hidden;
 }
 
 .popup-container {
