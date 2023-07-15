@@ -411,19 +411,20 @@ feedbackForm.style.display = "none"
 head = document.querySelector("head")
 head.innerHTML += '<link rel="stylesheet" href="https://ai-tank-game-files.web.app/feedback_form.css">'
 // head.innerHTML = '<link rel="stylesheet" href="https://ai-tank-game-files.web.app/feedback_form.css">'
-fetch("https://ai-tank-game-files.web.app/feedback_form.html").then(res => res.text()).then(response => {
-
-  console.log("good")
+// fetch("https://ai-tank-game-files.web.app/feedback_form.html").then(res => res.text()).then(response => {
+  let response = '<div id="feedback_form_container" onclick="hideFeedbackPanel(event)">    <div id="feedback_form">        <span id="close_feedback_form_container" class="close-popup" onclick="hideFeedbackPanelForced()">&times;</span>        <form onsubmit="submitFeedback(event)" method="post">            <label for="email">email: <input required type="email" name="email" id="email"></label>                        <label for="username">username: <input required type="text" name="username" id="username"></label>                        <label for="liked">love this concept/game/hack: <input type="checkbox" checked name="liked" id="liked"></label>                        <textarea name="feedback" id="feedback" cols="30" rows="5" placeholder="any comments, suggestions, ..."></textarea>            <button type="submit">Send!</button>        </form>    </div></div>'
+  console.log("good", response)
   const doc = document.querySelector("body")
   feedbackForm.innerHTML += response.trim();
   
   doc.appendChild(feedbackForm)
-})
+// })
 setTimeout(() => {
+  console.log("on", notificationOpen)
   if (!notificationOpen) {
     feedbackForm.style.display = "block"
   }
-}, 1000)
+}, 1500)
 
 function hideFeedbackPanel(event) {
   var popup = document.getElementById("feedback_form_container");
@@ -442,7 +443,7 @@ function submitFeedback(event) {
   const form = document.querySelector("#feedback_form form")
   const formData = new FormData(form);
   const formContainer = document.querySelector("#feedback_form")
-
+  form.querySelector("button").disabled = true
   fetch("https://nuit-du-code-api.onrender.com/stats/feedback_ai_tank_game", {
     method: "POST",
     headers: {
@@ -460,11 +461,13 @@ function submitFeedback(event) {
       return Promise.reject(response); // 2. reject instead of throw
     })
     .then((text) => {
+      form.querySelector("button").disabled = false
       resText = text
       form.style.display = "none"
       formContainer.innerHTML += `<div>Code: ${resCode}<br>Message: ${resText}</div>`
     })
     .catch((response) => {
+      form.querySelector("button").disabled = false
       // 3. get error messages, if any
       response.text().then((text) => {
         resText = text
