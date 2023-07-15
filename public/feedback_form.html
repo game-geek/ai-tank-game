@@ -1,0 +1,15 @@
+<div id="feedback_form_container" onclick="hideFeedbackPanel(event)">
+    <div id="feedback_form">
+        <span id="close_feedback_form_container" class="close-popup" onclick="hideFeedbackPanelForced()">&times;</span>
+        <form onsubmit="submitFeedback(event)" method="post">
+            <label for="email">email: <input required type="email" name="email" id="email"></label>
+            
+            <label for="username">username: <input type="text" name="username" id="username"></label>
+            
+            <label for="liked">love this concept/game/hack: <input type="checkbox" checked name="liked" id="liked"></label>
+            
+            <textarea name="feedback" id="feedback" cols="30" rows="5" placeholder="any comments, suggestions, ..."></textarea>
+            <button type="submit">Send!</button>
+        </form>
+    </div>
+</div>

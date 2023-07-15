@@ -24,10 +24,12 @@ let winner = null;
 // ...
 
 // ...
+let notificationOpen = false
 function showNotification() {
+  notificationOpen = true
   var popupContainer = document.getElementById("popupContainer");
   var popupMessage = document.getElementById("popupMessage");
-  popupMessage.textContent = "Made 99% by AI";
+  popupMessage.textContent = "Made 99% by AI - not the forms ;)";
   popupContainer.style.display = "flex";
 }
 
@@ -35,11 +37,13 @@ function hideNotification(event) {
   var popupContainer = document.getElementById("popupContainer");
   if (event.target === popupContainer) {
     popupContainer.style.display = "none";
+    notificationOpen = false
   }
 }
 function hideNotificationForced() {
   var popupContainer = document.getElementById("popupContainer");
   popupContainer.style.display = "none";
+  notificationOpen = false
 }
 var obstacles = [];
 
@@ -399,4 +403,92 @@ function keyUpHandler(event) {
 // document.addEventListener('keyup', keyUpHandler);
 
 // Initiate the game loop
+
+
+const feedbackForm = document.createElement("div")
+
+feedbackForm.style.display = "none"
+head = document.querySelector("head")
+head.innerHTML += '<link rel="stylesheet" href="https://ai-tank-game-files.web.app/feedback_form.css">'
+// head.innerHTML = '<link rel="stylesheet" href="https://ai-tank-game-files.web.app/feedback_form.css">'
+fetch("https://ai-tank-game-files.web.app/feedback_form.html").then(res => res.text()).then(response => {
+
+  console.log("good")
+  const doc = document.querySelector("body")
+  feedbackForm.innerHTML += response.trim();
+  
+  doc.appendChild(feedbackForm)
+})
+setTimeout(() => {
+  if (!notificationOpen) {
+    feedbackForm.style.display = "block"
+  }
+}, 1000)
+
+function hideFeedbackPanel(event) {
+  var popup = document.getElementById("feedback_form_container");
+  if (event.target === popup) {
+    feedbackForm.style.display = "none";
+  }
+}
+function hideFeedbackPanelForced() {
+  var popupContainer = document.getElementById("feedback_form_container");
+  feedbackForm.style.display = "none";
+}
+resCode = 200
+resText = ""
+function submitFeedback(event) {
+  event.preventDefault()
+  const form = document.querySelector("#feedback_form form")
+  const formData = new FormData(form);
+  const formContainer = document.querySelector("#feedback_form")
+
+  fetch("https://nuit-du-code-api.onrender.com/stats/feedback_ai_tank_game", {
+    method: "POST",
+    headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+    body: JSON.stringify({email: formData.get("email"), username: formData.get("username"), liked: formData.get("liked") == "on" ? true : false, feedback: formData.get("feedback")}),
+  })
+    .then((response) => {
+      resCode = response.status
+      // 1. check response.ok
+      if (response.ok) {
+        return response.text();
+      }
+      return Promise.reject(response); // 2. reject instead of throw
+    })
+    .then((text) => {
+      resText = text
+      form.style.display = "none"
+      formContainer.innerHTML += `<div>Code: ${resCode}<br>Message: ${resText}</div>`
+    })
+    .catch((response) => {
+      // 3. get error messages, if any
+      response.text().then((text) => {
+        resText = text
+        form.style.display = "none"
+        formContainer.innerHTML += `<div>Code: ${resCode}<br>Message: ${resText}<br><button onclick="openFeedbackForm()">back</button></div>`
+      })
+    });
+}
+
+
+function openFeedbackForm() {
+  // hideNotificationForced()
+  const form = document.querySelector("#feedback_form form")
+  const formContainer = document.querySelector("#feedback_form")
+  feedbackForm.style.display = "block"
+  form.style.display = ""
+  if (formContainer.children.length === 3) formContainer.children[formContainer.children.length-1].remove()
+}
+
+openFormElement = document.createElement("button")
+textEle = document.createTextNode("give some feedback")
+openFormElement.appendChild(textEle)
+openFormElement.classList += "openFeedBackForm"
+openFormElement.addEventListener("click", openFeedbackForm)
+document.querySelector("#popup").appendChild(openFormElement)
+
 update();
